@@ -834,9 +834,7 @@ def cust_mst_form(request, cust_id=None):
             for tag_name in tag_names:
                 tag, _ = CustTags.objects.get_or_create(name=tag_name)
                 cust_mst.tags.add(tag)
-            return redirect('/Dashboard/list_cust_mst/')  
-        
+            return redirect('/Dashboard/list_cust_mst/')
     else:
         form = CustMstForm(instance=cust_instance)
-
-    return render(request, 'your_template.html', {'form': form})
+    return render(request, 'Dashboard/Add_GroupMst.html', {'form': form})
