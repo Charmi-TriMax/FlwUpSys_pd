@@ -265,12 +265,12 @@
                         <tbody>
                             {% for tag in Tag_list %}
                             <tr>
-                                <td><input type="checkbox" name="tag_checkbox" value="{{ tag.Code }}" {% if tag.is_saved %}checked{% endif %}></td>
+                                <td><input type="checkbox" name="tag_checkbox" value="{{ tag.Code }}"></td>
                                 <td>{{ tag.Code }}</td>
                                 <td>{{ tag.Name }}</td>
-                                {% comment %} {% if forloop %} <!-- Check if this is the last iteration -->
+                                {% if forloop %} <!-- Check if this is the last iteration -->
                                     <td><input type="checkbox" name="right_checkbox" value="{{ tag.Code }}" style="visibility:Hidden;"></td>
-                                {% endif %} {% endcomment %}
+                                {% endif %}
                             </tr>
                             {% endfor %}
                         </tbody>

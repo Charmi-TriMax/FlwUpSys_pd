@@ -597,13 +597,15 @@ def add_customers(request):
             cr_dt_tm = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             upd_dt_tm = cr_dt_tm
             selected_tags = form.cleaned_data['Tags']
-
             for tag in Tag_list:
-                if tag.Code == selected_tags:
-                    tag.Tag = tag.Code
-
+                if tag.code == selected_tags:
+                    tag.tag = tag.Code
+            
             # Save the updated values to the database
             for tag in Tag_list:
+                tag.save()
+
+            if tag in TagMst:
                 tag.save()
 
             Add_Customer = CustMst(
@@ -659,12 +661,12 @@ def add_customers(request):
             )
             Add_Customer.save()
 
-            # for tag in selected_tags:
-            #     CustTags.objects.create(Tags = selected_tags)
+            for tag in selected_tags:
+                CustTags.objects.create(Tags = selected_tags)
 
-            #     if 'right_checkbox' in request.POST:
-            #         right_checkbox_value = request.POST['right_checkbox']
-            #         CustTags.objects.create(Cust=Add_Customer, Tags=right_checkbox_value)
+            if 'right_checkbox' in request.POST:
+                right_checkbox_value = request.POST['right_checkbox']
+                CustTags.objects.create(Cust=Add_Customer, Tags=right_checkbox_value)
 
             return redirect('/Dashboard/Customer_list/')
     else:
@@ -673,11 +675,8 @@ def add_customers(request):
     context = {
         'Tag_list': Tag_list,
         'form': form,
-
     }
-
     return render(request, 'Dashboard/Add_customer.html', context)
-
 
 @login_required(login_url="/accounts/login")
 def update_customers(request, id):
@@ -799,7 +798,6 @@ def update_customers(request, id):
         }
     return render(request, 'Dashboard/Add_customer.html', context)
 
-
 def Customer_Tags(request):
     Tag_list = CustTags.objects.all()
     if request.method == 'POST':
@@ -820,3 +818,25 @@ def Customer_Tags(request):
         'Tag_list': Tag_list,
     }
     return render(request, 'Dashboard/Customer_Tags.html', context)
+
+def cust_mst_form(request, cust_id=None):
+    if cust_id:
+        cust_instance = CustMst.objects.get(pk=cust_id)
+    else:
+        cust_instance = None
+
+    if request.method == 'POST':
+        form = CustMstForm(request.POST, instance=cust_instance)
+        if form.is_valid():
+            cust_mst = form.save()
+            tag_names = request.POST.getlist('tags')
+            cust_mst.tags.clear()
+            for tag_name in tag_names:
+                tag, _ = CustTags.objects.get_or_create(name=tag_name)
+                cust_mst.tags.add(tag)
+            return redirect('/Dashboard/list_cust_mst/')  
+        
+    else:
+        form = CustMstForm(instance=cust_instance)
+
+    return render(request, 'your_template.html', {'form': form})
