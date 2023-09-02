@@ -90,7 +90,6 @@
                                                                 <th>GSTNo</th>
                                                                 <th>Edit</th>
                                                                 <th>Tags</th>
-                                                                
                                                             </tr>
                                                         </thead>
                                                         {% for cust in Cust_list %} 
@@ -100,9 +99,9 @@
                                                                 <td>{{cust.GrpMstCode}}</td>
                                                                 <td>
                                                                     {% if cust.ContPrsnNm %}
-                                                                        {{ cust.ContPrsnNm }}
+                                                                        {{cust.ContPrsnNm}}
                                                                     {% else %}
-                                                                        {{ cust.RespPrsnNm }}
+                                                                        {{cust.RespPrsnNm}}
                                                                     {% endif %}
                                                                 </td>
                                                                 <td>{{cust.list_mobiles}}</td>
@@ -111,7 +110,6 @@
                                                                 <td>{{cust.CityMstID}}</td>
                                                                 <td>{{cust.Tags}}</td>
                                                                 <td>{{cust.GSTNo}}</td>
-                                                                
                                                                 <td>
                                                                     <button type="button" class="btn-pill btn-shadow btn-shine btn btn-primary">
                                                                         <a href="/Dashboard/update_customer/{{cust.id}}/" class="text-decoration-none text-white px-2">Edit</a>

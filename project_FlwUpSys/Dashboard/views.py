@@ -660,22 +660,22 @@ def add_customers(request):
             Add_Customer.save()
 
             # for tag in selected_tags:
-            #     CustMst.objects.create(Tags=selected_tags)
+            #     CustTags.objects.create(Tags = selected_tags)
 
-            # if 'special_checkbox' in request.POST:
-            #     special_checkbox_value = request.POST['special_checkbox']
-            #     CustTags.objects.create(
-            #         Cust=Add_Customer, Tags=special_checkbox_value)
+            #     if 'right_checkbox' in request.POST:
+            #         right_checkbox_value = request.POST['right_checkbox']
+            #         CustTags.objects.create(Cust=Add_Customer, Tags=right_checkbox_value)
 
             return redirect('/Dashboard/Customer_list/')
-
     else:
         form = CustMstForm()
 
     context = {
         'Tag_list': Tag_list,
         'form': form,
+
     }
+
     return render(request, 'Dashboard/Add_customer.html', context)
 
 
@@ -728,6 +728,7 @@ def update_customers(request, id):
             customer.DealerTyp = form.cleaned_data['DealerTyp']
             customer.GSTNo = form.cleaned_data['GSTNo']
             customer.PANNo = form.cleaned_data['PANNo']
+            customer.Tags =form.cleaned_data['Tags']
             customer.Other1 = form.cleaned_data['Other1']
             customer.Other2 = form.cleaned_data['Other2']
             customer.CrBy = form.cleaned_data['CrBy']
@@ -781,6 +782,7 @@ def update_customers(request, id):
             'DealerTyp': customer.DealerTyp,
             'GSTNo': customer.GSTNo,
             'PANNo': customer.PANNo,
+            'Tags':customer.Tags,
             'Other1': customer.Other1,
             'Other2': customer.Other2,
             'CrBy': customer.CrBy,
