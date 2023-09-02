@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FollowUpSystem</title>
+    <meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        {% comment %} ==================== Header Logo & hamburger ====================   {% endcomment %}
+        {% include 'Dashboard/header.html' %}
+        
+        {% comment %} ======================== sidebar ========================== {% endcomment %}
+        <div class="app-main">
+            {% include 'Dashboard/sidebar.html' %}
+            
+            {% comment %} ======================== Main-content ========================== {% endcomment %}
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                                </div>
+                                <div>FollowUpSystem Customer</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabs-animation">
+                        <div class="card mb-3">
+                            <div class="card-header-tab card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <h3>Customer Table</h3>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-center align-item-center mb-5">
+                                    <a href="{% url 'add_customers' %}">
+                                        <button class="btn-pill btn-shadow btn-shine btn btn-primary">Add Customer</button>
+                                    </a>
+                                </div>
+                                <div class="container d-flex justify-content-center align-items-center" >
+                                    <div class="row">
+                                        <form method="GET" action ="">
+                                            <div class="d-flex flex-column flex-md-row justify-content-md-around align-items-center m-auto my-4">                                                
+                                                <div class="filter d-flex mb-5">
+                                                    <label for="filter" class="mx-1">Filter:</label>
+                                                    <select name="GrpMstCode" id="city" onchange="handleFilterChange()" class="mx-1">
+                                                        <option value="">----ALL----</option>
+                                                        {% for GrpCode in GrpCode_List %}
+                                                            <option value="{{ GrpCode.GrpMstCode }}" {% if selected_filter == GrpCode.GrpMstCode %}selected{% endif %}>
+                                                                {{ GrpCode.GrpMstCode }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <button type="submit" class="btn-pill btn-shadow btn-shine btn btn-primary">Filter</button>
+                                                </div>
+                                                
+                                                <div class="search d-flex flex-column flex-md-row align-items-center mt-2 mt-md-0 mb-5">
+                                                    <label for="search" class="mx-1">Search:</label>
+                                                    <input type="text" name="search_query" value="{{ search_query }}" placeholder="Search..." autocomplete="off" autofocus>
+                                                    <button type="submit" class="btn-pill btn-shadow btn-shine btn btn-primary mx-1">Search</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-container m-auto" style="width:100%;">
+                                                <div class="table-responsive border border-4 border-info mb-4" style="max-height: 300px; overflow-y: auto;">
+                                                    <table class="table table-bordered text-center mb-0" style="width:100%;">
+                                                        <thead class="table-info">
+                                                            <tr>
+                                                                <th>Customer_Name</th>
+                                                                <th>Group</th>
+                                                                <th>Contact person</th> 
+                                                                <th>Contact No</th>
+                                                                <th>Addr</th>
+                                                                <th>Area</th>
+                                                                <th>City</th>
+                                                                <th>GSTNo</th>
+                                                                <th>Edit</th>
+                                                                <th>Tags</th>
+                                                                
+                                                            </tr>
+                                                        </thead>
+                                                        {% for cust in Cust_list %} 
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{{cust.Name}}</td>
+                                                                <td>{{cust.GrpMstCode}}</td>
+                                                                <td>
+                                                                    {% if cust.ContPrsnNm %}
+                                                                        {{ cust.ContPrsnNm }}
+                                                                    {% else %}
+                                                                        {{ cust.RespPrsnNm }}
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td>{{cust.list_mobiles}}</td>
+                                                                <td>{{cust.Addr1}}</td>
+                                                                <td>{{cust.CityAreaID}}</td>
+                                                                <td>{{cust.CityMstID}}</td>
+                                                                <td>{{cust.GSTNo}}</td>
+                                                                <td>
+                                                                    <button type="button" class="btn-pill btn-shadow btn-shine btn btn-primary">
+                                                                        <a href="/Dashboard/update_customer/{{cust.id}}/" class="text-decoration-none text-white px-2">Edit</a>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn-pill btn-shadow btn-shine btn btn-primary">
+                                                                        <a href="" class="text-decoration-none text-white px-2">Tags</a>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        {% endfor %}
+                                                        
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <nav aria-label="Page navigation example">
+                                                <ul class="pagination justify-content-center">
+                                                    {% if Cust_list.has_previous %}
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page={{ Cust_list.previous_page_number }}" tabindex="-1">Previous</a>
+                                                        </li>
+                                                    {% endif %}
+                                                    
+                                                    {% for page_number in totalpagelist %}
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                                
+                                                    {% if Cust_list.has_next %}
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page={{ Cust_list.next_page_number }}">Next</a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </nav>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

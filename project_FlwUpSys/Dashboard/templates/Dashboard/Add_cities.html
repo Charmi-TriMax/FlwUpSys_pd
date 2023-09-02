@@ -1,0 +1,19 @@
+<h1 class="text-center text-white">{% if page_type == 'Update' %}Update Cities{% else %}Add Cities{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function() {
+        var preselectedState = '{{ preselected_state }}';
+    
+        if (preselectedState) {
+            $('#id_State').val(preselectedState);
+        }
+    
+        // Rest of your JavaScript code
+        // ...
+    });
+    </script>

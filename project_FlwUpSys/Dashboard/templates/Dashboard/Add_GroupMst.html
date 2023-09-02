@@ -1,0 +1,71 @@
+{% block head%}
+    <style>
+        .form-field {
+            margin-bottom: 20px; 
+          }
+    </style>
+{% endblock %}
+{% block body %}
+<h1>Add Customer Groups</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-field">
+            {{ form.Code.label_tag }}
+            {{ form.Code }}
+            {% if Codeerror_message %}
+                <div class="error" style="color:red;">{{ Codeerror_message }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-field">
+            {{ form.Name.label_tag }}
+            {{ form.Name }}
+            {% if Nameerror_message %}
+                <div class="error" style="color:red;">{{ Nameerror_message }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-field">
+            {{ form.Other1.label_tag }}
+            {{ form.Other1 }}
+        </div>
+
+        <div class="form-field">
+            {{ form.Other2.label_tag }}
+            {{ form.Other2 }}
+          </div>
+          
+          <div class="form-field">
+            {{ form.CrDtTm.label_tag }}
+            {{ form.CrDtTm }}
+          </div>
+      
+          <div class="form-field">
+            {{ form.CrBy.label_tag }}
+            {{ form.CrBy }}
+          </div>
+      
+          <div class="form-field">
+            {{ form.CrFrom.label_tag }}
+            {{ form.CrFrom }}
+          </div>
+      
+          <div class="form-field">
+            {{ form.UpdDtTm.label_tag }}
+            {{ form.UpdDtTm }}
+          </div>
+      
+          <div class="form-field">
+            {{ form.UpdBy.label_tag }}
+            {{ form.UpdBy }}
+          </div>
+      
+          <div class="form-field">
+            {{ form.UpdFrom.label_tag }}
+            {{ form.UpdFrom }}
+          </div>
+
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

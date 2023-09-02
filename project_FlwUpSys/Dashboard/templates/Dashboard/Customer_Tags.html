@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FollowUpSystem</title>
+    <meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        {% comment %} ==================== Header Logo & hamburger ====================   {% endcomment %}
+        {% include 'Dashboard/header.html' %}
+        
+        {% comment %} ======================== sidebar ========================== {% endcomment %}
+        <div class="app-main">
+            {% include 'Dashboard/sidebar.html' %}
+
+                {% comment %} ======================== Main-content ========================== {% endcomment %}
+                    <div class="app-main__outer">
+                        <div class="app-main__inner">
+                            <div class="app-page-title">
+                                <div class="page-title-wrapper">
+                                    <div class="page-title-heading">
+                                        <div class="page-title-icon">
+                                            <i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+                                        </div>
+                                        <div>FollowUpSystem Customer Tags</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs-animation">
+                                <div class="card mb-3">
+                                    <div class="card-header-tab card-header">
+                                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                            <h3>Customer Tags</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container d-flex justify-content-center align-items-center" >
+                                            <div class="row">
+                                                <form method="GET" action ="">
+                                                    <div class="table-container m-auto" style="width:100%;">
+                                                        <div class="table-responsive border border-4 border-info mb-4" style="max-height: 300px; overflow-y: auto;">
+                                                            <table class="table table-bordered text-center mb-0" style="width:100%;">
+                                                                <thead class="table-info">
+                                                                    <tr>
+                                                                        <th>Customer_Name</th>
+                                                                        <th>Customer Tags</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                {% for tag in Tag_list %}
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>{{tag.Cust}}</td>
+                                                                            <td>{{tag.Tag}}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                {% endfor %}
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <script src="{% static 'js/home.js' %}"></script>
+        </body>
+        </html>
+        
+            

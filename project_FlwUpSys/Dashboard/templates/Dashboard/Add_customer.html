@@ -1,0 +1,314 @@
+<h1 class="text-center text-white">
+    {% if page_type == 'Update' %}
+    Update Customer
+    {% else %}
+    Add Customer
+    {% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-field">
+        {{ form.Name.label_tag }}
+        {{ form.Name }}
+    </div>
+
+    <div class="form-field">
+        {{ form.GrpMstID.label_tag }}
+        {{ form.GrpMstID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.GrpMstCode.label_tag }}
+        {{ form.GrpMstCode }}
+    </div>
+
+    <div class="form-field">
+        {{ form.RespPrsnNm.label_tag }}
+        {{ form.RespPrsnNm }}
+    </div>
+
+    <div class="form-field">
+        {{ form.RespPrsnMbl.label_tag }}
+        {{ form.RespPrsnMbl }}
+    </div>
+
+    <div class="form-field">
+        {{ form.ContPrsnNm.label_tag }}
+        {{ form.ContPrsnNm }}
+    </div>
+
+    <div class="form-field">
+        {{ form.ContPrsnMbl.label_tag }}
+        {{ form.ContPrsnMbl }}
+    </div>
+
+    <div class="form-field">
+        {{ form.ContPrsnEMail.label_tag }}
+        {{ form.ContPrsnEMail }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Addr1.label_tag }}
+        {{ form.Addr1 }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Addr2.label_tag }}
+        {{ form.Addr2 }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Addr3.label_tag }}
+        {{ form.Addr3 }}
+    </div>
+
+    <div class="form-field">
+        {{ form.CityAreaID.label_tag }}
+        {{ form.CityAreaID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.CityMstID.label_tag }}
+        {{ form.CityMstID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.StateMstID.label_tag }}
+        {{ form.StateMstID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.StateCode.label_tag }}
+        {{ form.StateCode }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Pincode.label_tag }}
+        {{ form.Pincode }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Country.label_tag }}
+        {{ form.Country }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Mobile.label_tag }}
+        {{ form.Mobile }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Phone.label_tag }}
+        {{ form.Phone }}
+    </div>
+
+    <div class="form-field">
+        {{ form.EMail.label_tag }}
+        {{ form.EMail }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthContPrsnNm.label_tag }}
+        {{ form.OthContPrsnNm }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthContPrsnMbl.label_tag }}
+        {{ form.OthContPrsnMbl }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthAddr1.label_tag }}
+        {{ form.OthAddr1 }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthAddr2.label_tag }}
+        {{ form.OthAddr2 }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthAddr3.label_tag }}
+        {{ form.OthAddr3 }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthCityAreaID.label_tag }}
+        {{ form.OthCityAreaID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthCityMstID.label_tag }}
+        {{ form.OthCityMstID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthStateMstID.label_tag }}
+        {{ form.OthStateMstID }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthStateCode.label_tag }}
+        {{ form.OthStateCode }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthPincode.label_tag }}
+        {{ form.OthPincode }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthCountry.label_tag }}
+        {{ form.OthCountry }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthMobile.label_tag }}
+        {{ form.OthMobile }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthPhone.label_tag }}
+        {{ form.OthPhone }}
+    </div>
+
+    <div class="form-field">
+        {{ form.OthEMail.label_tag }}
+        {{ form.OthEMail }}
+    </div>
+
+    <div class="form-field">
+        {{ form.WebAddr.label_tag }}
+        {{ form.WebAddr }}
+    </div>
+
+    <div class="form-field">
+        {{ form.SplRemarks.label_tag }}
+        {{ form.SplRemarks }}
+    </div>
+
+    <div class="form-field">
+        {{ form.DealerTyp.label_tag }}
+        {{ form.DealerTyp }}
+    </div>
+
+    <div class="form-field">
+        {{ form.GSTNo.label_tag }}
+        {{ form.GSTNo }}
+    </div>
+
+    <div class="form-field">
+        {{ form.PANNo.label_tag }}
+        {{ form.PANNo }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Other1.label_tag }}
+        {{ form.Other1 }}
+    </div>
+  
+    <div class="form-field">
+        {{ form.Other2.label_tag }}
+        {{ form.Other2 }}
+    </div>
+      
+    <div class="form-field">
+        {{ form.CrDtTm.label_tag }}
+        {{ form.CrDtTm }}
+    </div>
+  
+    <div class="form-field">
+        {{ form.CrBy.label_tag }}
+        {{ form.CrBy }}
+    </div>
+  
+    <div class="form-field">
+        {{ form.CrFrom.label_tag }}
+        {{ form.CrFrom }}
+    </div>
+  
+    <div class="form-field">
+        {{ form.UpdDtTm.label_tag }}
+        {{ form.UpdDtTm }}
+    </div>
+  
+    <div class="form-field">
+        {{ form.UpdBy.label_tag }}
+        {{ form.UpdBy }}
+    </div>
+  
+    <div class="form-field">
+        {{ form.UpdFrom.label_tag }}
+        {{ form.UpdFrom }}
+    </div>
+
+    <div class="form-field">
+        {{ form.Tags.label_tag }}
+        {{ form.Tags }}
+    </div>
+
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="table-container" style="width:50%;">
+                <div class="table-responsive border border-4 border-info mb-4"
+                    style="max-height: 300px; overflow-y: auto;">
+                    <table class="table table-bordered text-center mb-0" style="width:50%;">
+                        <thead class="table-info">
+                            <tr>
+                                <th>Select</th>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th style="visibility:hidden;">hidden_select<th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tag in Tag_list %}
+                            <tr>
+                                <td><input type="checkbox" name="tag_checkbox" value="{{ tag.Code }}"></td>
+                                <td>{{ tag.Code }}</td>
+                                <td>{{ tag.Name }}</td>
+                                {% if forloop %} <!-- Check if this is the last iteration -->
+                                    <td><input type="checkbox" name="special_checkbox" value="{{ tag.Code }}" style="visibility:Hidden;"></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <button type="button" id="addTagsButton">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hidden field to store selected tags -->
+    <input type="hidden" name="selected_tags" id="selected_tags" value="">
+    
+    <!-- Display area for selected tags -->
+    <div id="selectedTagsDisplay" style="Display:none"></div>
+
+    <!-- Submit button -->
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tagCheckboxes = document.querySelectorAll('input[name="tag_checkbox"]');
+        const selectedTagsField = document.getElementById('selected_tags');
+        const selectedTagsDisplay = document.getElementById('selectedTagsDisplay');
+
+        document.getElementById('addTagsButton').addEventListener('click', function () {
+            const selectedTags = Array.from(tagCheckboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            selectedTagsField.value = selectedTags.join(', ');
+            selectedTagsDisplay.textContent = selectedTags.join(', '); // Update selectedTagsDisplay
+
+            // Additional code to update the form field value if needed
+            const formTagsInput = document.querySelector('input[name="Tags"]');
+            formTagsInput.value = selectedTags.join(', ');
+        });
+    });
+</script>
+

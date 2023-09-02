@@ -1,0 +1,173 @@
+{% block head %}
+<style>
+  .form-field {
+    margin-bottom: 20px; 
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+  <h1>Add Customer Address</h1>
+  <form method="post" id="address-form">
+    {% csrf_token %}
+    
+    <div class="form-field">
+      {{ form.State.label_tag }}
+      {{ form.State }}
+    </div>
+
+    <div class="form-field">
+      {{ form.City.label_tag }}
+      {{ form.City }}
+      <div id="add-city-container" style="display:inline;">
+        <button id="AddCity">Add City</button>
+      </div>
+    </div>
+
+    <div class="form-field">
+      {{ form.CityArea.label_tag }}
+      {{ form.CityArea }}
+      <div id="add-cityArea-container" style="display:inline;">
+        <button id="AddCityArea">Add CityArea</button>
+      </div>    
+    </div>
+
+    <div class="form-field">
+      {{ form.Other1.label_tag }}
+      {{ form.Other1 }}
+    </div>
+
+    <div class="form-field">
+      {{ form.Other2.label_tag }}
+      {{ form.Other2 }}
+    </div>
+    
+    <div class="form-field">
+      {{ form.CrDtTm.label_tag }}
+      {{ form.CrDtTm }}
+    </div>
+
+    <div class="form-field">
+      {{ form.CrBy.label_tag }}
+      {{ form.CrBy }}
+    </div>
+
+    <div class="form-field">
+      {{ form.CrFrom.label_tag }}
+      {{ form.CrFrom }}
+    </div>
+
+    <div class="form-field">
+      {{ form.UpdDtTm.label_tag }}
+      {{ form.UpdDtTm }}
+    </div>
+
+    <div class="form-field">
+      {{ form.UpdBy.label_tag }}
+      {{ form.UpdBy }}
+    </div>
+
+    <div class="form-field">
+      {{ form.UpdFrom.label_tag }}
+      {{ form.UpdFrom }}
+    </div>
+
+    <button type="submit">Add Address</button>
+
+  </form>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      var citySelect = $('#id_City');
+      var cityAreaSelect = $('#id_CityArea');
+    
+    $('#id_State').change(function() {
+      var selectedState = $(this).val();
+      citySelect.empty();
+      cityAreaSelect.empty();
+
+      if (selectedState) {
+        $.get('{% url 'get_cities' %}', { state_name: selectedState }, function(data) {
+          if (data.cities.length === 0) {
+            citySelect.append($('<option>', {
+              value: '',
+              text: 'None'
+            }));
+            addCityContainer.show(); // Show the "Add City" button
+          } else {
+            $.each(data.cities, function(index, city) {
+              citySelect.append($('<option>', {
+                value: city.Name,
+                text: city.Name
+              }));
+            });
+            addCityContainer.hide(); // Hide the "Add City" button
+          }
+          citySelect.trigger('change');
+        });
+      }
+    });
+
+    citySelect.change(function() {
+      var selectedCity = $(this).val();
+      cityAreaSelect.empty();
+      addCityAreaContainer.empty();
+
+      if (!selectedCity) {
+        cityAreaSelect.append($('<option>', {
+          value: '',
+          text: 'None'
+        }));
+        addCityAreaContainer.show(); // Show the "Add CityArea" button
+
+        var addCityAreaButton = $('<button>', {
+          id: 'AddCityArea',
+          text: 'Add CityArea'
+        });
+
+        addCityAreaButton.on('click', function() {
+          window.location.href = '{% url 'Add_CityAreas' %}';
+        });
+
+        
+      } else {
+        $.get('{% url 'get_city_areas' %}', { city_name: selectedCity }, function(data) {
+          if (data.city_areas.length === 0) {
+            cityAreaSelect.append($('<option>', {
+              value: '',
+              text: 'None'
+            }));
+            addCityAreaContainer.show(); // Show the "Add CityArea" button
+
+            var addCityAreaButton = $('<button>', {
+              id: 'AddCityArea',
+              text: 'Add CityArea'
+            });
+
+            addCityAreaButton.on('click', function() {
+              window.location.href = '{% url 'Add_CityAreas' %}';
+            });
+
+            
+          } else {
+            $.each(data.city_areas, function(index, cityArea) {
+              cityAreaSelect.append($('<option>', {
+                value: cityArea.Name,
+                text: cityArea.Name
+              }));
+            });
+            
+          }
+        });
+      }
+    });
+
+    $('#AddCity').on('click', function() {
+      // Redirect to a new HTML form or URL
+      window.location.href = '{% url 'Add_Cities' %}';
+    });
+  });
+
+  </script>
+{% endblock %}
