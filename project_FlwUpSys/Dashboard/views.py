@@ -30,33 +30,15 @@ def is_superuser(user):
 @user_passes_test(is_superuser, login_url="/accounts/login")
 def Staff_list(request):
     USER_TYPE_CHOICES = get_user_type_choices()
-
     StaffList = Staff.objects.all().order_by('user__username')
     # Get the search query or an empty string
     Search_For = request.GET.get('search_query', '')
     selected_filter = request.GET.get('user_type')  # Get selected filter value
-
     if selected_filter:
         StaffList = StaffList.filter(user_type=selected_filter)  # Apply filter
-
     if Search_For:
-        StaffList = StaffList.filter(Q(user__username__icontains=Search_For) |
-                                     Q(code__icontains=Search_For) |
-                                     Q(isActive__icontains=Search_For) |
-                                     Q(user_type__icontains=Search_For) |
-                                     Q(Designation__icontains=Search_For) |
-                                     Q(dob__icontains=Search_For) |
-                                     Q(mobile__icontains=Search_For) |
-                                     Q(Phone__icontains=Search_For) |
-                                     Q(ForceReset__icontains=Search_For) |
-                                     Q(Other1__icontains=Search_For) |
-                                     Q(Other2__icontains=Search_For) |
-                                     Q(CrDtTm__icontains=Search_For) |
-                                     Q(CrBy__icontains=Search_For) |
-                                     Q(CrFrom__icontains=Search_For) |
-                                     Q(UpdDtTm__icontains=Search_For) |
-                                     Q(UpdBy__icontains=Search_For) |
-                                     Q(UpdFrom__icontains=Search_For))
+        StaffList = StaffList.filter(Q(user__username__icontains=Search_For) | Q(code__icontains=Search_For) | Q(isActive__icontains=Search_For) | Q(user_type__icontains=Search_For) | Q(Designation__icontains=Search_For) | Q(dob__icontains=Search_For) | Q(mobile__icontains=Search_For) | Q(Phone__icontains=Search_For) | Q(
+            ForceReset__icontains=Search_For) | Q(Other1__icontains=Search_For) | Q(Other2__icontains=Search_For) | Q(CrDtTm__icontains=Search_For) | Q(CrBy__icontains=Search_For) | Q(CrFrom__icontains=Search_For) | Q(UpdDtTm__icontains=Search_For) | Q(UpdBy__icontains=Search_For) | Q(UpdFrom__icontains=Search_For))
 
         request.session['search_query'] = Search_For
     else:
@@ -69,7 +51,6 @@ def Staff_list(request):
 
     totalpage = StaffList.paginator.num_pages
     page_list = [staff + 1 for staff in range(totalpage)]
-
     context = {
         'USER_TYPE_CHOICES': USER_TYPE_CHOICES,
         'staff_list': StaffList,
@@ -80,7 +61,7 @@ def Staff_list(request):
     return render(request, "Dashboard/staff.html", context)
 
 
-# @login_required(login_url="/accounts/login")
+@login_required(login_url="/accounts/login")
 def edit_password(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -103,7 +84,7 @@ def edit_password(request, user_id):
     return render(request, 'Dashboard/edit_password.html', context)
 
 
-# @login_required(login_url="/accounts/login")
+@login_required(login_url="/accounts/login")
 def reset_password(request):
     return render(request, 'Dashboard/edit_password.html')
 
@@ -600,7 +581,7 @@ def add_customers(request):
             for tag in Tag_list:
                 if tag.code == selected_tags:
                     tag.tag = tag.Code
-            
+
             # Save the updated values to the database
             for tag in Tag_list:
                 tag.save()
@@ -662,11 +643,12 @@ def add_customers(request):
             Add_Customer.save()
 
             for tag in selected_tags:
-                CustTags.objects.create(Tags = selected_tags)
+                CustTags.objects.create(Tags=selected_tags)
 
             if 'right_checkbox' in request.POST:
                 right_checkbox_value = request.POST['right_checkbox']
-                CustTags.objects.create(Cust=Add_Customer, Tags=right_checkbox_value)
+                CustTags.objects.create(
+                    Cust=Add_Customer, Tags=right_checkbox_value)
 
             return redirect('/Dashboard/Customer_list/')
     else:
@@ -677,6 +659,7 @@ def add_customers(request):
         'form': form,
     }
     return render(request, 'Dashboard/Add_customer.html', context)
+
 
 @login_required(login_url="/accounts/login")
 def update_customers(request, id):
@@ -727,7 +710,7 @@ def update_customers(request, id):
             customer.DealerTyp = form.cleaned_data['DealerTyp']
             customer.GSTNo = form.cleaned_data['GSTNo']
             customer.PANNo = form.cleaned_data['PANNo']
-            customer.Tags =form.cleaned_data['Tags']
+            customer.Tags = form.cleaned_data['Tags']
             customer.Other1 = form.cleaned_data['Other1']
             customer.Other2 = form.cleaned_data['Other2']
             customer.CrBy = form.cleaned_data['CrBy']
@@ -781,7 +764,7 @@ def update_customers(request, id):
             'DealerTyp': customer.DealerTyp,
             'GSTNo': customer.GSTNo,
             'PANNo': customer.PANNo,
-            'Tags':customer.Tags,
+            'Tags': customer.Tags,
             'Other1': customer.Other1,
             'Other2': customer.Other2,
             'CrBy': customer.CrBy,
@@ -797,6 +780,7 @@ def update_customers(request, id):
             'page_type': 'Update'
         }
     return render(request, 'Dashboard/Add_customer.html', context)
+
 
 def Customer_Tags(request):
     Tag_list = CustTags.objects.all()
@@ -818,23 +802,3 @@ def Customer_Tags(request):
         'Tag_list': Tag_list,
     }
     return render(request, 'Dashboard/Customer_Tags.html', context)
-
-def cust_mst_form(request, cust_id=None):
-    if cust_id:
-        cust_instance = CustMst.objects.get(pk=cust_id)
-    else:
-        cust_instance = None
-
-    if request.method == 'POST':
-        form = CustMstForm(request.POST, instance=cust_instance)
-        if form.is_valid():
-            cust_mst = form.save()
-            tag_names = request.POST.getlist('tags')
-            cust_mst.tags.clear()
-            for tag_name in tag_names:
-                tag, _ = CustTags.objects.get_or_create(name=tag_name)
-                cust_mst.tags.add(tag)
-            return redirect('/Dashboard/list_cust_mst/')
-    else:
-        form = CustMstForm(instance=cust_instance)
-    return render(request, 'Dashboard/Add_GroupMst.html', {'form': form})
