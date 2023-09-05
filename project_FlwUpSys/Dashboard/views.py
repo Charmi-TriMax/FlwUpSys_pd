@@ -660,7 +660,6 @@ def add_customers(request):
     }
     return render(request, 'Dashboard/Add_customer.html', context)
 
-
 @login_required(login_url="/accounts/login")
 def update_customers(request, id):
     Tag_list = TagMst.objects.all().order_by('Code')
